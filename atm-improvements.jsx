@@ -4,12 +4,15 @@ const ATMDeposit = ({ onChange, isDeposit, isValid }) => {
   return (
     <label className="label huge">
       <h3> {choice[Number(!isDeposit)]}</h3>
+      
       <input
+        className="mb-2"
         id="number-input"
         type="number"
         width="200"
         onChange={onChange}
       ></input>
+      <br></br>
       <input
         type="submit"
         disabled={!isValid}
@@ -29,7 +32,7 @@ const Account = () => {
   const [atmMode, setAtmMode] = React.useState("");
   const [validTransaction, setValidTransaction] = React.useState(false);
 
-  let status = `Account Balance $ ${totalState} `;
+  let status = `Balance de cuenta $ ${totalState} `;
   console.log(`Account Rendered with isDeposit: ${isDeposit}`);
 
   const handleChange = (event) => {
@@ -65,32 +68,42 @@ const Account = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <>
-      <h2 id="total">{status}</h2>
-      <label>Select an action below to continue</label>
-      <select
-        onChange={(e) => handleModeSelect(e)}
-        name="mode"
-        id="mode-select"
-      >
-        <option id="no-selection" value=""></option>
-        <option id="deposit-selection" value="Deposit">
-          Deposit
-        </option>
-        <option id="cashback-selection" value="Cash Back">
-          Cash Back
-        </option>
-      </select>
-      {atmMode && (
-        <ATMDeposit
-          onChange={handleChange}
-          isDeposit={isDeposit}
-          isValid={validTransaction}
-        ></ATMDeposit>
-      )}
-      </>
-    </form>
+    <div class="card text-center  bg-info" style={{padding: 50}}>
+      <h2 class="card-header">Banco de la felicidad</h2>
+      <div class="card-body">
+        <h5 class="card-title">Por favor seleciona la opción que deseas ejecutar</h5>
+        <form onSubmit={handleSubmit}>
+          <>
+            <h2 id="total">{status}</h2>
+            <label>Selecciona una opción</label>
+            <select
+              onChange={(e) => handleModeSelect(e)}
+              name="mode"
+              id="mode-select"
+            >
+              <option id="no-selection" value=""></option>
+              <option id="deposit-selection" value="Deposit">
+                Deposit
+              </option>
+              <option id="cashback-selection" value="Cash Back">
+                Cash Back
+              </option>
+            </select>
+            <div>
+            {atmMode && (
+              <ATMDeposit
+                onChange={handleChange}
+                isDeposit={isDeposit}
+                isValid={validTransaction}
+              ></ATMDeposit>
+            )}
+            </div>
+            
+          </>
+        </form>
+      </div>
+      <div class="card-footer text-body-secondary">Gracias por usar nuestros servicios</div>
+    </div>
   );
 };
 // ========================================
